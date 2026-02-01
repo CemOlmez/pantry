@@ -3,17 +3,24 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import {
+  Home,
+  BookOpen,
+  CalendarDays,
+  UtensilsCrossed,
+  ShoppingCart,
+} from "lucide-react";
 
 export function BottomTabs() {
   const t = useTranslations("nav");
   const pathname = usePathname();
 
   const tabs = [
-    { href: "/", icon: "🏠", label: t("pantry") },
-    { href: "/recipes", icon: "📖", label: t("recipes") },
-    { href: "/meal-planner", icon: "📅", label: t("mealPlanner") },
-    { href: "/meal-prep", icon: "🍱", label: t("mealPrep") },
-    { href: "/shopping-list", icon: "🛒", label: t("shoppingList") },
+    { href: "/", icon: <Home size={20} />, label: t("pantry") },
+    { href: "/recipes", icon: <BookOpen size={20} />, label: t("recipes") },
+    { href: "/meal-planner", icon: <CalendarDays size={20} />, label: t("mealPlanner") },
+    { href: "/meal-prep", icon: <UtensilsCrossed size={20} />, label: t("mealPrep") },
+    { href: "/shopping-list", icon: <ShoppingCart size={20} />, label: t("shoppingList") },
   ];
 
   return (
@@ -36,7 +43,7 @@ export function BottomTabs() {
                   : "text-[var(--color-tabs-inactive)]"
               )}
             >
-              <span className="text-lg">{tab.icon}</span>
+              {tab.icon}
               <span className="font-medium">{tab.label}</span>
             </Link>
           );

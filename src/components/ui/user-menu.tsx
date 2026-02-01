@@ -1,56 +1,193 @@
 "use client";
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useTranslations } from "next-intl";
+import { useState, useRef, useEffect } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
 import { Link } from "@/i18n/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export function UserMenu() {
+const itemClass =
+  "block w-full text-left rounded-lg px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] cursor-pointer";
+
+const subMenuClass =
+  "absolute left-full top-0 ml-1 z-50 min-w-[140px] rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-1.5 shadow-lg";
+
+export function UserMenu({ collapsed }: { collapsed?: boolean }) {
   const t = useTranslations("user");
+  const tc = useTranslations("common");
+  const { theme, setTheme } = useTheme();
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+  const currentLocale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const menuItems = [
+  const [open, setOpen] = useState(false);
+  const [subMenu, setSubMenu] = useState<"language" | "theme" | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setSubMenu(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setOpen(false);
+        setSubMenu(null);
+      }
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [open]);
+
+  const topItems = [
     { label: t("settings"), href: "/settings" },
     { label: t("profile"), href: "/profile" },
-    { label: t("notifications"), href: "/notifications" },
-    { label: t("analytics"), href: "/analytics" },
-    { label: t("store"), href: "/store" },
   ];
 
-  return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-sidebar-item-hover)] hover:text-[var(--color-text)] transition-colors cursor-pointer">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary)] text-[var(--color-text-inverse)] text-xs font-bold">
-            G
-          </div>
-          <span>{t("guest")}</span>
-        </button>
-      </DropdownMenu.Trigger>
+  const bottomItems = [
+    { label: t("help"), href: "#help" },
+    { label: t("upgrade"), href: "#upgrade" },
+  ];
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="min-w-[200px] rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-1.5 shadow-lg"
-          side="top"
-          align="start"
-          sideOffset={8}
-        >
-          {menuItems.map((item) => (
-            <DropdownMenu.Item key={item.href} asChild>
-              <Link
-                href={item.href}
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)] outline-none cursor-pointer"
-              >
-                {item.label}
-              </Link>
-            </DropdownMenu.Item>
+  function close() {
+    setOpen(false);
+    setSubMenu(null);
+  }
+
+  return (
+    <div className="relative" ref={menuRef}>
+      <button
+        onClick={() => { setOpen(!open); setSubMenu(null); }}
+        className={cn(
+          "flex items-center rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-sidebar-item-hover)] hover:text-[var(--color-text)] transition-colors cursor-pointer",
+          collapsed ? "justify-center p-2 w-full" : "gap-3 px-3 py-2 w-full"
+        )}
+      >
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-[var(--color-text-inverse)] text-xs font-bold">
+          G
+        </div>
+        {!collapsed && <span>{t("guest")}</span>}
+      </button>
+
+      {open && (
+        <div className="absolute bottom-full left-0 mb-4 z-50 min-w-[220px] max-h-[calc(100vh-100px)] overflow-visible rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-1.5 shadow-lg">
+          {/* Account & preferences */}
+          {topItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={itemClass}
+              onClick={close}
+            >
+              {item.label}
+            </Link>
           ))}
 
-          <DropdownMenu.Separator className="my-1 h-px bg-[var(--color-border)]" />
+          {/* Language sub-menu */}
+          <div className="relative">
+            <button
+              className={cn(itemClass, "flex items-center justify-between")}
+              onMouseEnter={() => setSubMenu("language")}
+              onClick={() => setSubMenu(subMenu === "language" ? null : "language")}
+            >
+              <span>{tc("language")}</span>
+              <ChevronRight size={14} className="text-[var(--color-text-tertiary)]" />
+            </button>
+            {subMenu === "language" && (
+              <div className={subMenuClass}>
+                <button
+                  className={cn(itemClass, currentLocale === "en" && "text-[var(--color-primary)]")}
+                  onClick={() => { router.replace(pathname, { locale: "en" }); close(); }}
+                >
+                  English
+                </button>
+                <button
+                  className={cn(itemClass, currentLocale === "tr" && "text-[var(--color-primary)]")}
+                  onClick={() => { router.replace(pathname, { locale: "tr" }); close(); }}
+                >
+                  Türkçe
+                </button>
+              </div>
+            )}
+          </div>
 
-          <DropdownMenu.Item className="rounded-lg px-3 py-2 text-sm text-[var(--color-danger)] hover:bg-[var(--color-surface-hover)] outline-none cursor-pointer">
+          {/* Theme sub-menu */}
+          {mounted && (
+            <div className="relative">
+              <button
+                className={cn(itemClass, "flex items-center justify-between")}
+                onMouseEnter={() => setSubMenu("theme")}
+                onClick={() => setSubMenu(subMenu === "theme" ? null : "theme")}
+              >
+                <span>{tc("theme")}</span>
+                <ChevronRight size={14} className="text-[var(--color-text-tertiary)]" />
+              </button>
+              {subMenu === "theme" && (
+                <div className={subMenuClass}>
+                  <button
+                    className={cn(itemClass, theme === "light" && "text-[var(--color-primary)]")}
+                    onClick={() => { setTheme("light"); close(); }}
+                  >
+                    {tc("light")}
+                  </button>
+                  <button
+                    className={cn(itemClass, theme === "dark" && "text-[var(--color-primary)]")}
+                    onClick={() => { setTheme("dark"); close(); }}
+                  >
+                    {tc("dark")}
+                  </button>
+                  <button
+                    className={cn(itemClass, theme === "system" && "text-[var(--color-primary)]")}
+                    onClick={() => { setTheme("system"); close(); }}
+                  >
+                    {tc("system")}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="my-1 h-px bg-[var(--color-border)]" />
+
+          {/* Help & upgrade */}
+          {bottomItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={itemClass}
+              onClick={close}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <div className="my-1 h-px bg-[var(--color-border)]" />
+
+          <button
+            className="block w-full text-left rounded-lg px-3 py-2 text-sm text-[var(--color-danger)] hover:bg-[var(--color-surface-hover)] cursor-pointer"
+            onClick={close}
+          >
             {t("logout")}
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
