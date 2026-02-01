@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "pantry": "Kilerim",
+    "recipes": "Tarifler",
+    "mealPlanner": "Yemek Planlayıcı",
+    "mealPrep": "Yemek Hazırlık",
+    "shoppingList": "Alışveriş Listesi",
+    "settings": "Ayarlar"
+  },
+  "pages": {
+    "pantry": "Kilerim",
+    "recipes": "Tarifler",
+    "recipeDetail": "Tarif Detayı",
+    "mealPlanner": "Yemek Planlayıcı",
+    "mealPrep": "Yemek Hazırlık",
+    "shoppingList": "Alışveriş Listesi",
+    "settings": "Ayarlar"
+  },
+  "common": {
+    "appName": "Pantry",
+    "language": "Dil",
+    "theme": "Tema",
+    "light": "Açık",
+    "dark": "Koyu",
+    "system": "Sistem"
+  },
+  "user": {
+    "guest": "Misafir",
+    "settings": "Ayarlar",
+    "profile": "Profil",
+    "notifications": "Bildirimler",
+    "analytics": "Analizler",
+    "store": "Mağaza",
+    "help": "Yardım Al",
+    "upgrade": "Planı Yükselt",
+    "logout": "Çıkış Yap"
+  }
+}

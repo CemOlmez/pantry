@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "pantry": "My Pantry",
+    "recipes": "Recipes",
+    "mealPlanner": "Meal Planner",
+    "mealPrep": "Meal Prep",
+    "shoppingList": "Shopping List",
+    "settings": "Settings"
+  },
+  "pages": {
+    "pantry": "My Pantry",
+    "recipes": "Recipes",
+    "recipeDetail": "Recipe Detail",
+    "mealPlanner": "Meal Planner",
+    "mealPrep": "Meal Prep",
+    "shoppingList": "Shopping List",
+    "settings": "Settings"
+  },
+  "common": {
+    "appName": "Pantry",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "user": {
+    "guest": "Guest",
+    "settings": "Settings",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "analytics": "Analytics",
+    "store": "Store",
+    "help": "Get Help",
+    "upgrade": "Upgrade Plan",
+    "logout": "Log out"
+  }
+}
