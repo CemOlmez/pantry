@@ -34,5 +34,139 @@
     "help": "Yardım Al",
     "upgrade": "Planı Yükselt",
     "logout": "Çıkış Yap"
+  },
+  "recipes": {
+    "title": "Tarifler",
+    "createRecipe": "Tarif Oluştur",
+    "tabs": {
+      "discover": "Keşfet",
+      "favorites": "Favoriler",
+      "myRecipes": "Tariflerim"
+    },
+    "filters": {
+      "search": "Tarif ara...",
+      "canCookNow": "Şimdi Yapabilirim",
+      "meal": "Öğün",
+      "cuisine": "Mutfak",
+      "time": "Süre",
+      "difficulty": "Zorluk",
+      "diet": "Diyet",
+      "clearAll": "Temizle",
+      "showing": "Gösterilen",
+      "recipes": "tarif"
+    },
+    "empty": {
+      "favoritesTitle": "Henüz favori yok",
+      "favoritesDescription": "Beğendiğiniz tarifleri kalp simgesine dokunarak kaydedin. Kolay erişim için burada görünecekler.",
+      "favoritesAction": "Tarifleri Keşfet",
+      "myRecipesTitle": "İlk tarifinizi oluşturun",
+      "myRecipesDescription": "Mutfak yaratımlarınızı toplulukla paylaşın. Tarifleriniz burada görünecek.",
+      "myRecipesAction": "Tarif Oluştur",
+      "noResultsTitle": "Tarif bulunamadı",
+      "noResultsDescription": "Aradığınızı bulmak için filtrelerinizi veya arama terimlerinizi ayarlamayı deneyin."
+    },
+    "stats": {
+      "published": "Yayınlanan",
+      "drafts": "Taslaklar",
+      "totalSaves": "Toplam Kayıt",
+      "avgRating": "Ort. Puan"
+    },
+    "detail": {
+      "ingredients": "Malzemeler",
+      "instructions": "Yapılış",
+      "nutrition": "Besin Değerleri",
+      "reviews": "Yorumlar",
+      "relatedRecipes": "Bunları da Beğenebilirsiniz",
+      "servings": "porsiyon",
+      "prepTime": "Hazırlık",
+      "cookTime": "Pişirme",
+      "totalTime": "Toplam",
+      "minutes": "dk",
+      "calories": "kal",
+      "protein": "Protein",
+      "carbs": "Karbonhidrat",
+      "fat": "Yağ",
+      "perServing": "porsiyon başına",
+      "youHave": "Elinizde",
+      "of": "/",
+      "ingredientsLabel": "malzeme var",
+      "readyToCook": "Pişirmeye hazır!",
+      "addMissingToList": "Eksikleri listeye ekle",
+      "writeReview": "Yorum yaz",
+      "share": "Paylaş",
+      "report": "Bildir",
+      "edit": "Düzenle",
+      "by": "tarafından"
+    },
+    "create": {
+      "title": "Tarif Oluştur",
+      "editTitle": "Tarifi Düzenle",
+      "steps": {
+        "basicInfo": "Temel Bilgiler",
+        "ingredients": "Malzemeler",
+        "instructions": "Yapılış",
+        "details": "Detaylar"
+      },
+      "fields": {
+        "title": "Tarif Adı",
+        "titlePlaceholder": "Tarif adını girin",
+        "description": "Açıklama",
+        "descriptionPlaceholder": "Tarifinizi açıklayın...",
+        "image": "Fotoğraf",
+        "uploadImage": "Fotoğraf Yükle",
+        "servings": "Porsiyon",
+        "prepTime": "Hazırlık Süresi (dk)",
+        "cookTime": "Pişirme Süresi (dk)",
+        "difficulty": "Zorluk",
+        "ingredient": "Malzeme",
+        "quantity": "Miktar",
+        "unit": "Birim",
+        "addIngredient": "Malzeme Ekle",
+        "addFromPantry": "Kilinden ekle",
+        "step": "Adım",
+        "addStep": "Adım Ekle",
+        "mealType": "Öğün Türü",
+        "cuisine": "Mutfak",
+        "dietaryTags": "Diyet Etiketleri",
+        "publishToCommunity": "Topluluğa Yayınla"
+      },
+      "actions": {
+        "back": "Geri",
+        "next": "İleri",
+        "saveAsDraft": "Taslak Olarak Kaydet",
+        "publish": "Tarifi Yayınla",
+        "save": "Değişiklikleri Kaydet"
+      }
+    },
+    "difficulty": {
+      "easy": "Kolay",
+      "medium": "Orta",
+      "hard": "Zor"
+    },
+    "mealTypes": {
+      "breakfast": "Kahvaltı",
+      "lunch": "Öğle Yemeği",
+      "dinner": "Akşam Yemeği",
+      "snack": "Atıştırmalık",
+      "dessert": "Tatlı"
+    },
+    "cuisines": {
+      "italian": "İtalyan",
+      "mexican": "Meksika",
+      "asian": "Asya",
+      "mediterranean": "Akdeniz",
+      "american": "Amerikan",
+      "indian": "Hint",
+      "french": "Fransız",
+      "other": "Diğer"
+    },
+    "dietary": {
+      "vegetarian": "Vejetaryen",
+      "vegan": "Vegan",
+      "glutenFree": "Glutensiz",
+      "dairyFree": "Süt Ürünsüz",
+      "keto": "Keto",
+      "lowCarb": "Düşük Karbonhidrat"
+    }
   }
 }

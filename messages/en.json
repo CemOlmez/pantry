@@ -34,5 +34,139 @@
     "help": "Get Help",
     "upgrade": "Upgrade Plan",
     "logout": "Log out"
+  },
+  "recipes": {
+    "title": "Recipes",
+    "createRecipe": "Create Recipe",
+    "tabs": {
+      "discover": "Discover",
+      "favorites": "Favorites",
+      "myRecipes": "My Recipes"
+    },
+    "filters": {
+      "search": "Search recipes...",
+      "canCookNow": "Can Cook Now",
+      "meal": "Meal",
+      "cuisine": "Cuisine",
+      "time": "Time",
+      "difficulty": "Difficulty",
+      "diet": "Diet",
+      "clearAll": "Clear all",
+      "showing": "Showing",
+      "recipes": "recipes"
+    },
+    "empty": {
+      "favoritesTitle": "No favorites yet",
+      "favoritesDescription": "Save recipes you love by tapping the heart icon. They'll appear here for easy access.",
+      "favoritesAction": "Discover Recipes",
+      "myRecipesTitle": "Create your first recipe",
+      "myRecipesDescription": "Share your culinary creations with the community. Your recipes will appear here.",
+      "myRecipesAction": "Create Recipe",
+      "noResultsTitle": "No recipes found",
+      "noResultsDescription": "Try adjusting your filters or search terms to find what you're looking for."
+    },
+    "stats": {
+      "published": "Published",
+      "drafts": "Drafts",
+      "totalSaves": "Total Saves",
+      "avgRating": "Avg Rating"
+    },
+    "detail": {
+      "ingredients": "Ingredients",
+      "instructions": "Instructions",
+      "nutrition": "Nutrition",
+      "reviews": "Reviews",
+      "relatedRecipes": "You Might Also Like",
+      "servings": "servings",
+      "prepTime": "Prep",
+      "cookTime": "Cook",
+      "totalTime": "Total",
+      "minutes": "min",
+      "calories": "cal",
+      "protein": "Protein",
+      "carbs": "Carbs",
+      "fat": "Fat",
+      "perServing": "per serving",
+      "youHave": "You have",
+      "of": "of",
+      "ingredientsLabel": "ingredients",
+      "readyToCook": "Ready to cook!",
+      "addMissingToList": "Add missing to shopping list",
+      "writeReview": "Write a review",
+      "share": "Share",
+      "report": "Report",
+      "edit": "Edit",
+      "by": "by"
+    },
+    "create": {
+      "title": "Create Recipe",
+      "editTitle": "Edit Recipe",
+      "steps": {
+        "basicInfo": "Basic Info",
+        "ingredients": "Ingredients",
+        "instructions": "Instructions",
+        "details": "Details"
+      },
+      "fields": {
+        "title": "Recipe Title",
+        "titlePlaceholder": "Enter recipe title",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your recipe...",
+        "image": "Photo",
+        "uploadImage": "Upload Photo",
+        "servings": "Servings",
+        "prepTime": "Prep Time (min)",
+        "cookTime": "Cook Time (min)",
+        "difficulty": "Difficulty",
+        "ingredient": "Ingredient",
+        "quantity": "Qty",
+        "unit": "Unit",
+        "addIngredient": "Add Ingredient",
+        "addFromPantry": "Add from your pantry",
+        "step": "Step",
+        "addStep": "Add Step",
+        "mealType": "Meal Type",
+        "cuisine": "Cuisine",
+        "dietaryTags": "Dietary Tags",
+        "publishToCommunity": "Publish to Community"
+      },
+      "actions": {
+        "back": "Back",
+        "next": "Next",
+        "saveAsDraft": "Save as Draft",
+        "publish": "Publish Recipe",
+        "save": "Save Changes"
+      }
+    },
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "mealTypes": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack",
+      "dessert": "Dessert"
+    },
+    "cuisines": {
+      "italian": "Italian",
+      "mexican": "Mexican",
+      "asian": "Asian",
+      "mediterranean": "Mediterranean",
+      "american": "American",
+      "indian": "Indian",
+      "french": "French",
+      "other": "Other"
+    },
+    "dietary": {
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "glutenFree": "Gluten-free",
+      "dairyFree": "Dairy-free",
+      "keto": "Keto",
+      "lowCarb": "Low-carb"
+    }
   }
 }
