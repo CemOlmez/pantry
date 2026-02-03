@@ -9,6 +9,7 @@ import {
   RecipeGrid,
   RecipeStats,
   EmptyState,
+  RecipeCreator,
   mockRecipes,
 } from "@/components/recipes";
 import type { RecipeTab, RecipeFilterState, Recipe } from "@/components/recipes";
@@ -112,6 +113,9 @@ export default function RecipesPage() {
   // Recipes state (with favorites toggle)
   const [recipes, setRecipes] = useState(mockRecipes);
 
+  // Creator modal state
+  const [isCreatorOpen, setIsCreatorOpen] = useState(false);
+
   // Toggle favorite
   const toggleFavorite = (id: string) => {
     setRecipes((prev) =>
@@ -168,8 +172,44 @@ export default function RecipesPage() {
 
   // Handle create button
   const handleCreate = () => {
-    // TODO: Open create modal or navigate to create page
-    console.log("Create recipe");
+    setIsCreatorOpen(true);
+  };
+
+  // Handle save recipe
+  const handleSaveRecipe = (recipeData: Partial<Recipe>, isDraft: boolean) => {
+    const newRecipe: Recipe = {
+      id: `recipe-${Date.now()}`,
+      title: recipeData.title || "Untitled Recipe",
+      description: recipeData.description || "",
+      image: recipeData.image || undefined,
+      author: { id: "current", name: "You" },
+      servings: recipeData.servings || 4,
+      prepTime: recipeData.prepTime || 15,
+      cookTime: recipeData.cookTime || 30,
+      difficulty: recipeData.difficulty || "medium",
+      ingredients: recipeData.ingredients || [],
+      instructions: recipeData.instructions || [],
+      nutrition: {
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+      },
+      mealType: recipeData.mealType || [],
+      cuisine: recipeData.cuisine || "other",
+      dietaryTags: recipeData.dietaryTags || [],
+      rating: 0,
+      reviewCount: 0,
+      isPublished: isDraft ? false : (recipeData.isPublished ?? false),
+      isOwned: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setRecipes((prev) => [newRecipe, ...prev]);
+
+    // Switch to My Recipes tab after creating
+    setActiveTab("my-recipes");
   };
 
   return (
@@ -282,6 +322,58 @@ export default function RecipesPage() {
       >
         <Plus className="w-7 h-7" />
       </button>
+
+      {/* Recipe Creator Modal */}
+      <RecipeCreator
+        isOpen={isCreatorOpen}
+        onClose={() => setIsCreatorOpen(false)}
+        onSave={handleSaveRecipe}
+        labels={{
+          title: t("create.title"),
+          editTitle: t("create.editTitle"),
+          steps: {
+            basicInfo: t("create.steps.basicInfo"),
+            ingredients: t("create.steps.ingredients"),
+            instructions: t("create.steps.instructions"),
+            details: t("create.steps.details"),
+          },
+          fields: {
+            title: t("create.fields.title"),
+            titlePlaceholder: t("create.fields.titlePlaceholder"),
+            description: t("create.fields.description"),
+            descriptionPlaceholder: t("create.fields.descriptionPlaceholder"),
+            image: t("create.fields.image"),
+            uploadImage: t("create.fields.uploadImage"),
+            servings: t("create.fields.servings"),
+            prepTime: t("create.fields.prepTime"),
+            cookTime: t("create.fields.cookTime"),
+            difficulty: t("create.fields.difficulty"),
+            ingredient: t("create.fields.ingredient"),
+            quantity: t("create.fields.quantity"),
+            unit: t("create.fields.unit"),
+            addIngredient: t("create.fields.addIngredient"),
+            addFromPantry: t("create.fields.addFromPantry"),
+            step: t("create.fields.step"),
+            addStep: t("create.fields.addStep"),
+            mealType: t("create.fields.mealType"),
+            cuisine: t("create.fields.cuisine"),
+            dietaryTags: t("create.fields.dietaryTags"),
+            publishToCommunity: t("create.fields.publishToCommunity"),
+          },
+          actions: {
+            back: t("create.actions.back"),
+            next: t("create.actions.next"),
+            saveAsDraft: t("create.actions.saveAsDraft"),
+            publish: t("create.actions.publish"),
+            save: t("create.actions.save"),
+          },
+          difficulty: {
+            easy: t("difficulty.easy"),
+            medium: t("difficulty.medium"),
+            hard: t("difficulty.hard"),
+          },
+        }}
+      />
     </div>
   );
 }
