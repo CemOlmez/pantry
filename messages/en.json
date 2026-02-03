@@ -1,5 +1,6 @@
 {
   "nav": {
+    "dashboard": "Dashboard",
     "pantry": "My Pantry",
     "recipes": "Recipes",
     "mealPlanner": "Meal Planner",

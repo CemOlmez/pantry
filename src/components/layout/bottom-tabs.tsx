@@ -4,10 +4,10 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
-  Home,
+  LayoutDashboard,
+  Refrigerator,
   BookOpen,
   CalendarDays,
-  UtensilsCrossed,
   ShoppingCart,
 } from "lucide-react";
 
@@ -16,10 +16,10 @@ export function BottomTabs() {
   const pathname = usePathname();
 
   const tabs = [
-    { href: "/", icon: <Home size={20} />, label: t("pantry") },
+    { href: "/", icon: <LayoutDashboard size={20} />, label: t("dashboard") },
+    { href: "/pantry", icon: <Refrigerator size={20} />, label: t("pantry") },
     { href: "/recipes", icon: <BookOpen size={20} />, label: t("recipes") },
     { href: "/meal-planner", icon: <CalendarDays size={20} />, label: t("mealPlanner") },
-    { href: "/meal-prep", icon: <UtensilsCrossed size={20} />, label: t("mealPrep") },
     { href: "/shopping-list", icon: <ShoppingCart size={20} />, label: t("shoppingList") },
   ];
 

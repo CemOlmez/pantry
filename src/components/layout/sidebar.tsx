@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
-  Home,
+  LayoutDashboard,
+  Refrigerator,
   BookOpen,
   CalendarDays,
   UtensilsCrossed,
@@ -22,7 +23,8 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const t = useTranslations("nav");
 
   const navItems = [
-    { href: "/", icon: <Home size={20} />, label: t("pantry") },
+    { href: "/", icon: <LayoutDashboard size={20} />, label: t("dashboard") },
+    { href: "/pantry", icon: <Refrigerator size={20} />, label: t("pantry") },
     { href: "/recipes", icon: <BookOpen size={20} />, label: t("recipes") },
     { href: "/meal-planner", icon: <CalendarDays size={20} />, label: t("mealPlanner") },
     { href: "/meal-prep", icon: <UtensilsCrossed size={20} />, label: t("mealPrep") },
