@@ -39,6 +39,13 @@ yarn-error.log*
 # worktrees
 .worktrees/
 
+# claude
+.claude/
+CLAUDE.md
+
+# docs
+docs/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
