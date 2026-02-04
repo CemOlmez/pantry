@@ -51,3 +51,4 @@ pantry-docs/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+*.Identifier
