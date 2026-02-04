@@ -45,6 +45,7 @@ CLAUDE.md
 
 # docs
 docs/
+pantry-docs/
 
 # typescript
 *.tsbuildinfo
