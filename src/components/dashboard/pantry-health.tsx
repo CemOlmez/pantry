@@ -34,6 +34,7 @@ export function PantryHealth() {
 
   return (
     <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+      <div className="h-1 bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400" />
       <div className="p-5 sm:p-6">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2.5">

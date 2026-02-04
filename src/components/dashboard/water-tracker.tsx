@@ -11,6 +11,7 @@ export function WaterTracker() {
 
   return (
     <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+      <div className="h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500" />
       <div className="p-5 sm:p-6">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2.5">

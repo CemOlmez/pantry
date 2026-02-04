@@ -22,6 +22,7 @@ export function WeeklyTrend() {
 
   return (
     <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+      <div className="h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-500" />
       <div className="p-5 sm:p-6">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2.5">

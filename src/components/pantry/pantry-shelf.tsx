@@ -555,7 +555,7 @@ function DetailsStep({
             onFocus={() => setShowSuggestions(true)}
             onKeyDown={handleKeyDown}
             placeholder={`Search ${selected.label.toLowerCase()}...`}
-            className="w-full text-sm rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] pl-9 pr-8 py-2.5 text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:border-[var(--color-primary)] transition-colors"
+            className="w-full text-sm rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] pl-9 pr-8 py-2.5 text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:border-[var(--color-primary)] transition-colors"
           />
           {name && (
             <button
@@ -623,7 +623,7 @@ function DetailsStep({
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             placeholder="Optional"
-            className="w-full text-sm rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2.5 text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:border-[var(--color-primary)] transition-colors"
+            className="w-full text-sm rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2.5 text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:border-[var(--color-primary)] transition-colors"
           />
         </div>
         <div className="flex-1">
@@ -631,7 +631,7 @@ function DetailsStep({
           <select
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
-            className="w-full text-sm rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2.5 text-[var(--color-text)] outline-none cursor-pointer focus:border-[var(--color-primary)] transition-colors"
+            className="w-full text-sm rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2.5 text-[var(--color-text)] outline-none cursor-pointer focus:border-[var(--color-primary)] transition-colors"
           >
             {UNITS.map((u) => (
               <option key={u} value={u}>{u}</option>
@@ -662,7 +662,7 @@ function DetailsStep({
           type="date"
           value={expiry}
           onChange={(e) => setExpiry(e.target.value)}
-          className="w-full text-sm rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2.5 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)] transition-colors"
+          className="w-full text-sm rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2.5 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)] transition-colors"
         />
         <p className="text-xs text-[var(--color-text-tertiary)] mt-1">
           Default: {defaultExpiryDays[selected.key]} days for {selected.label.toLowerCase()}
@@ -674,14 +674,14 @@ function DetailsStep({
         <button
           onClick={onAddAnother}
           disabled={!name.trim()}
-          className="flex-1 text-sm font-medium px-4 py-2.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] disabled:opacity-40 cursor-pointer transition-colors"
+          className="flex-1 text-sm font-medium px-4 py-2.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] disabled:opacity-40 cursor-pointer transition-colors"
         >
           Add & add another
         </button>
         <button
           onClick={onSubmit}
           disabled={!name.trim()}
-          className="flex-1 text-sm font-medium px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-[var(--color-text-inverse)] disabled:opacity-40 cursor-pointer transition-opacity"
+          className="flex-1 text-sm font-medium px-4 py-2.5 rounded-xl bg-gradient-to-r from-[var(--color-primary)] to-amber-500 text-white shadow-sm disabled:opacity-40 cursor-pointer transition-opacity"
         >
           Add item
         </button>
@@ -772,13 +772,13 @@ function AddItemModal({
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm"
       onClick={(e) => { if (e.target === backdropRef.current) onClose(); }}
     >
-      <div className="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-[var(--color-surface)] shadow-2xl overflow-hidden max-h-[85vh] overflow-y-auto">
+      <div className="w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl bg-[var(--color-surface)] shadow-2xl overflow-hidden max-h-[85vh] overflow-y-auto">
         {/* Drag handle (mobile) */}
         <div className="flex justify-center pt-3 pb-1 sm:hidden">
           <div className="w-10 h-1 rounded-full bg-[var(--color-bg-tertiary)]" />
         </div>
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-border)]">
+        <div className="flex items-center justify-between px-5 py-4 border-b-0">
           <div className="flex items-center gap-2">
             {step === "details" && (
               <button
@@ -796,6 +796,7 @@ function AddItemModal({
             <X size={18} />
           </button>
         </div>
+        <div className="h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent" />
 
         {/* Step 1: Pick category */}
         {step === "category" && (
@@ -806,10 +807,10 @@ function AddItemModal({
                 <button
                   key={cat.key}
                   onClick={() => selectCategory(cat.key)}
-                  className="flex items-center gap-3 rounded-xl px-3 py-3 text-left border border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] transition-colors cursor-pointer"
+                  className="flex items-center gap-3 rounded-xl px-3.5 py-3.5 text-left border border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] hover:shadow-sm hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
                 >
                   <div
-                    className="flex items-center justify-center w-8 h-8 rounded-lg shrink-0"
+                    className="flex items-center justify-center w-9 h-9 rounded-xl shrink-0"
                     style={{ backgroundColor: cat.color + "15" }}
                   >
                     <Icon size={16} style={{ color: cat.color }} />
@@ -869,7 +870,7 @@ function ItemRow({
   return (
     <button
       onClick={() => onEdit(item)}
-      className="group/row w-full text-left rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-3.5 hover:bg-[var(--color-bg-tertiary)] transition-colors cursor-pointer"
+      className="group/row w-full text-left rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-3.5 hover:bg-[var(--color-bg-tertiary)] hover:shadow-sm hover:-translate-y-[1px] transition-all duration-150 cursor-pointer"
     >
       {/* Top: name + expiry + delete */}
       <div className="flex items-center gap-2.5 mb-2">
@@ -889,7 +890,7 @@ function ItemRow({
         )}
         <span
           onClick={(e) => { e.stopPropagation(); onDelete(item.id); }}
-          className="opacity-0 group-hover/row:opacity-100 transition-opacity text-[var(--color-text-tertiary)] hover:text-[var(--color-danger)] shrink-0"
+          className="opacity-0 group-hover/row:opacity-100 transition-opacity text-[var(--color-text-tertiary)] hover:text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-950/30 p-1 rounded-lg shrink-0"
         >
           <X size={13} />
         </span>
@@ -1096,7 +1097,7 @@ function ItemDetailModal({
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm"
       onClick={(e) => { if (e.target === backdropRef.current) onClose(); }}
     >
-      <div className="w-full sm:max-w-md rounded-t-2xl sm:rounded-2xl bg-[var(--color-surface)] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+      <div className="w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl bg-[var(--color-surface)] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
         {/* Drag handle (mobile) */}
         <div className="flex justify-center pt-3 pb-1 sm:hidden">
           <div className="w-10 h-1 rounded-full bg-[var(--color-bg-tertiary)]" />
@@ -1152,7 +1153,7 @@ function ItemDetailModal({
                 <span className="text-xs text-[var(--color-text-tertiary)] bg-[var(--color-surface)] px-2.5 py-1 rounded-full">per {macros.per}</span>
               </div>
               <div className="flex items-baseline gap-1.5 mb-5">
-                <span className="text-3xl font-bold text-[var(--color-text)]">{macros.calories}</span>
+                <span className="text-3xl font-bold text-[var(--color-text)] tabular-nums">{macros.calories}</span>
                 <span className="text-xs text-[var(--color-text-tertiary)]">kcal</span>
               </div>
               <div className="space-y-3">
@@ -1230,7 +1231,7 @@ function ItemDetailModal({
         <div className="flex items-center gap-3 px-6 py-4 border-t border-[var(--color-border)]">
           <button
             onClick={() => { onDelete(item.id); onClose(); }}
-            className="text-sm font-medium text-[var(--color-danger)] hover:underline cursor-pointer"
+            className="text-sm font-medium text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-950/30 px-3 py-2 rounded-xl transition-colors cursor-pointer"
           >
             Delete
           </button>
@@ -1238,10 +1239,10 @@ function ItemDetailModal({
           {editing ? (
             <>
               <button onClick={() => setEditing(false)} className="text-sm font-medium px-4 py-2 rounded-xl text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] cursor-pointer transition-colors">Cancel</button>
-              <button onClick={save} className="text-sm font-medium px-5 py-2 rounded-xl bg-[var(--color-primary)] text-[var(--color-text-inverse)] cursor-pointer hover:opacity-90 transition-opacity">Save</button>
+              <button onClick={save} className="text-sm font-medium px-5 py-2 rounded-xl bg-gradient-to-r from-[var(--color-primary)] to-amber-500 text-white shadow-sm cursor-pointer hover:opacity-90 transition-opacity">Save</button>
             </>
           ) : (
-            <button onClick={() => setEditing(true)} className="text-sm font-medium px-5 py-2 rounded-xl bg-[var(--color-primary)] text-[var(--color-text-inverse)] cursor-pointer hover:opacity-90 transition-opacity">Edit</button>
+            <button onClick={() => setEditing(true)} className="text-sm font-medium px-5 py-2 rounded-xl bg-gradient-to-r from-[var(--color-primary)] to-amber-500 text-white shadow-sm cursor-pointer hover:opacity-90 transition-opacity">Edit</button>
           )}
         </div>
       </div>
@@ -1293,20 +1294,22 @@ function ShelfCard({
   }
 
   return (
-    <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+    <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+      {/* Accent bar using category color */}
+      <div className="h-1" style={{ background: `linear-gradient(to right, ${category.color}, ${category.color}88)` }} />
       {/* Shelf header */}
       <button
         className="flex items-center gap-3 w-full px-5 py-4 cursor-pointer select-none hover:bg-[var(--color-surface-hover)]/50 transition-colors"
         onClick={() => setCollapsed(!collapsed)}
       >
         <div
-          className="flex items-center justify-center w-9 h-9 rounded-xl shrink-0"
+          className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0 shadow-sm"
           style={{ backgroundColor: category.color + "15" }}
         >
           <Icon size={18} style={{ color: category.color }} />
         </div>
         <div className="flex-1 text-left min-w-0">
-          <p className="text-sm font-semibold text-[var(--color-text)]">{category.label}</p>
+          <p className="text-[15px] font-semibold text-[var(--color-text)]">{category.label}</p>
           <p className="text-xs text-[var(--color-text-tertiary)]">
             {category.items.length} item{category.items.length !== 1 ? "s" : ""}
             {expiringCount > 0 && (
@@ -1338,9 +1341,10 @@ function ShelfCard({
               />
             ))}
             {filtered.length === 0 && (
-              <p className="text-xs text-[var(--color-text-tertiary)] py-4 text-center">
-                No items yet
-              </p>
+              <div className="flex flex-col items-center gap-2 py-6 text-center">
+                <Package size={20} className="text-[var(--color-text-tertiary)]" />
+                <p className="text-xs text-[var(--color-text-tertiary)]">No items yet</p>
+              </div>
             )}
           </div>
         </div>
@@ -1405,49 +1409,58 @@ export function PantryShelf() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="flex-1 min-w-0">
-          <h1 className="text-xl font-bold text-[var(--color-text)]">My Pantry</h1>
-          <p className="text-xs text-[var(--color-text-tertiary)] mt-0.5">
-            {totalItems} item{totalItems !== 1 ? "s" : ""} across {categoriesUsed} categories
-          </p>
-        </div>
-        <div className="relative hidden sm:block w-52">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)]" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search..."
-            className="w-full rounded-lg bg-[var(--color-bg-secondary)] py-2 pl-8 pr-8 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
-          />
-          {search && (
+      <div className="rounded-2xl overflow-hidden relative bg-gradient-to-br from-[#E8913A] via-[#D47E2A] to-[#B5652A]">
+        {/* Decorative circles */}
+        <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-white/10" />
+        <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full bg-white/5" />
+        <div className="absolute top-1/2 right-1/4 w-20 h-20 rounded-full bg-white/5" />
+
+        <div className="relative p-5 sm:p-6">
+          <div className="flex items-center gap-3">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl font-bold text-white">My Pantry</h1>
+              <p className="text-xs text-white/70 mt-0.5">
+                {totalItems} item{totalItems !== 1 ? "s" : ""} across {categoriesUsed} categories
+              </p>
+            </div>
+            <div className="relative hidden sm:block w-52">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search..."
+                className="w-full rounded-lg bg-white/15 backdrop-blur-sm border-none py-2 pl-8 pr-8 text-sm text-white placeholder:text-white/50 outline-none focus:ring-1 focus:ring-white/30 transition-all"
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white cursor-pointer"
+                >
+                  <X size={13} />
+                </button>
+              )}
+            </div>
             <button
-              onClick={() => setSearch("")}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text)] cursor-pointer"
+              onClick={() => setShowAddModal(true)}
+              className="flex items-center gap-1.5 shrink-0 rounded-xl bg-white text-[#E8913A] px-4 py-2.5 text-sm font-medium cursor-pointer hover:bg-white/90 transition-opacity"
             >
-              <X size={13} />
+              <Plus size={16} />
+              <span className="hidden sm:inline">Add Item</span>
             </button>
-          )}
+          </div>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 shrink-0 rounded-xl bg-[var(--color-primary)] text-[var(--color-text-inverse)] px-4 py-2.5 text-sm font-medium cursor-pointer hover:opacity-90 transition-opacity"
-        >
-          <Plus size={16} />
-          <span className="hidden sm:inline">Add Item</span>
-        </button>
       </div>
 
       {/* Mobile search */}
-      <div className="relative sm:hidden">
+      <div className="relative sm:hidden shadow-sm">
         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)]" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search items..."
-          className="w-full rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] py-2.5 pl-8 pr-8 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
+          className="w-full rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] py-2.5 pl-8 pr-8 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none focus:ring-1 focus:ring-[var(--color-primary)] transition-all"
         />
         {search && (
           <button
@@ -1461,36 +1474,45 @@ export function PantryShelf() {
 
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 shrink-0">
-              <Package size={18} className="text-[var(--color-primary)]" />
-            </div>
-            <div>
-              <p className="text-xl font-bold text-[var(--color-text)] tabular-nums">{totalItems}</p>
-              <p className="text-xs text-[var(--color-text-tertiary)]">Total items</p>
-            </div>
-          </div>
-        </div>
-        <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950/30 shrink-0">
-              <AlertTriangle size={18} className="text-orange-500" />
-            </div>
-            <div>
-              <p className={cn("text-xl font-bold tabular-nums", expiringItems > 0 ? "text-orange-500" : "text-[var(--color-text)]")}>{expiringItems}</p>
-              <p className="text-xs text-[var(--color-text-tertiary)]">Expiring soon</p>
+        <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+          <div className="h-1 bg-gradient-to-r from-[var(--color-primary)] to-amber-400" />
+          <div className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[var(--color-primary)]/10 shrink-0">
+                <Package size={18} className="text-[var(--color-primary)]" />
+              </div>
+              <div>
+                <p className="text-xl font-bold text-[var(--color-text)] tabular-nums">{totalItems}</p>
+                <p className="text-xs text-[var(--color-text-tertiary)]">Total items</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-red-100 dark:bg-red-950/30 shrink-0">
-              <X size={18} className="text-red-500" />
+        <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+          <div className="h-1 bg-gradient-to-r from-orange-400 to-amber-400" />
+          <div className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950/30 shrink-0">
+                <AlertTriangle size={18} className="text-orange-500" />
+              </div>
+              <div>
+                <p className={cn("text-xl font-bold tabular-nums", expiringItems > 0 ? "text-orange-500" : "text-[var(--color-text)]")}>{expiringItems}</p>
+                <p className="text-xs text-[var(--color-text-tertiary)]">Expiring soon</p>
+              </div>
             </div>
-            <div>
-              <p className={cn("text-xl font-bold tabular-nums", expiredItems > 0 ? "text-red-500" : "text-[var(--color-text)]")}>{expiredItems}</p>
-              <p className="text-xs text-[var(--color-text-tertiary)]">Expired</p>
+          </div>
+        </div>
+        <div className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm overflow-hidden">
+          <div className="h-1 bg-gradient-to-r from-red-400 to-orange-400" />
+          <div className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-red-100 dark:bg-red-950/30 shrink-0">
+                <X size={18} className="text-red-500" />
+              </div>
+              <div>
+                <p className={cn("text-xl font-bold tabular-nums", expiredItems > 0 ? "text-red-500" : "text-[var(--color-text)]")}>{expiredItems}</p>
+                <p className="text-xs text-[var(--color-text-tertiary)]">Expired</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1501,10 +1523,10 @@ export function PantryShelf() {
           <button
             onClick={() => setActiveFilter(null)}
             className={cn(
-              "shrink-0 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors cursor-pointer",
+              "shrink-0 text-xs font-medium px-3.5 py-2 rounded-xl transition-all duration-200 cursor-pointer",
               activeFilter === null
-                ? "bg-[var(--color-primary)] text-[var(--color-text-inverse)]"
-                : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]"
+                ? "bg-gradient-to-r from-[var(--color-primary)] to-amber-500 text-[var(--color-text-inverse)] shadow-sm"
+                : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]"
             )}
           >
             All ({totalItems})
@@ -1517,10 +1539,10 @@ export function PantryShelf() {
                 key={cat.key}
                 onClick={() => setActiveFilter(isActive ? null : cat.key)}
                 className={cn(
-                  "shrink-0 flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors cursor-pointer",
+                  "shrink-0 flex items-center gap-1 text-xs font-medium px-3.5 py-2 rounded-xl transition-all duration-200 cursor-pointer",
                   isActive
-                    ? "text-[var(--color-text-inverse)]"
-                    : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]"
+                    ? "text-[var(--color-text-inverse)] shadow-sm"
+                    : "bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)] border border-[var(--color-border)]"
                 )}
                 style={isActive ? { backgroundColor: cat.color } : undefined}
               >

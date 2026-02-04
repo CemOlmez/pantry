@@ -12,34 +12,32 @@ import { CanCookNow } from "@/components/dashboard/can-cook-now";
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
-      {/* Welcome banner */}
+      {/* Hero */}
       <WelcomeCard />
 
       {/* Quick actions */}
       <QuickActions />
 
-      {/* Row 1: Nutrition + Meals */}
+      {/* Nutrition + Meals */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <MacroRings />
         <TodaysMeals />
       </div>
 
-      {/* Row 2: Pantry Health + Water */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <PantryHealth />
-        <WaterTracker />
-      </div>
+      {/* Ready to Cook — full width for 3-card grid */}
+      <CanCookNow />
 
-      {/* Row 3: Expiring + Missing */}
+      {/* Expiring + Missing */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <ExpiringItems />
         <MissingIngredients />
       </div>
 
-      {/* Row 4: Weekly Trend + Cook Now */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      {/* Health + Water + Weekly */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <PantryHealth />
+        <WaterTracker />
         <WeeklyTrend />
-        <CanCookNow />
       </div>
     </div>
   );
