@@ -3,7 +3,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Providers } from "@/components/providers";
-import { AppLayout } from "@/components/layout/app-layout";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -30,7 +29,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <AppLayout>{children}</AppLayout>
+            {children}
           </NextIntlClientProvider>
         </Providers>
       </body>

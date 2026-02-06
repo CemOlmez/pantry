@@ -60,8 +60,8 @@ export function MobileHeader() {
   ];
 
   const bottomItems = [
-    { label: t("help"), href: "#help" },
-    { label: t("upgrade"), href: "#upgrade" },
+    { label: t("help"), href: "/help" },
+    { label: t("upgrade"), href: "/upgrade" },
   ];
 
   function close() {

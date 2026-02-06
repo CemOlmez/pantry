@@ -8,7 +8,6 @@ import {
   BookOpen,
   CalendarDays,
   UtensilsCrossed,
-  ShoppingCart,
   PanelLeftClose,
 } from "lucide-react";
 import { NavItem } from "@/components/ui/nav-item";
@@ -28,7 +27,6 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
     { href: "/recipes", icon: <BookOpen size={20} />, label: t("recipes") },
     { href: "/meal-planner", icon: <CalendarDays size={20} />, label: t("mealPlanner") },
     { href: "/meal-prep", icon: <UtensilsCrossed size={20} />, label: t("mealPrep") },
-    { href: "/shopping-list", icon: <ShoppingCart size={20} />, label: t("shoppingList") },
   ];
 
   return (

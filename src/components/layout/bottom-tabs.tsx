@@ -8,7 +8,7 @@ import {
   Refrigerator,
   BookOpen,
   CalendarDays,
-  ShoppingCart,
+  UtensilsCrossed,
 } from "lucide-react";
 
 export function BottomTabs() {
@@ -20,7 +20,7 @@ export function BottomTabs() {
     { href: "/pantry", icon: <Refrigerator size={20} />, label: t("pantry") },
     { href: "/recipes", icon: <BookOpen size={20} />, label: t("recipes") },
     { href: "/meal-planner", icon: <CalendarDays size={20} />, label: t("mealPlanner") },
-    { href: "/shopping-list", icon: <ShoppingCart size={20} />, label: t("shoppingList") },
+    { href: "/meal-prep", icon: <UtensilsCrossed size={20} />, label: t("mealPrep") },
   ];
 
   return (

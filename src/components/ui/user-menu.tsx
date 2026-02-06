@@ -56,14 +56,14 @@ export function UserMenu({ collapsed }: { collapsed?: boolean }) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [open]);
 
-  const topItems = [
-    { label: t("settings"), href: "/settings" },
+  const profileItems = [
     { label: t("profile"), href: "/profile" },
+    { label: t("settings"), href: "/settings" },
   ];
 
   const bottomItems = [
-    { label: t("help"), href: "#help" },
-    { label: t("upgrade"), href: "#upgrade" },
+    { label: t("help"), href: "/help" },
+    { label: t("upgrade"), href: "/upgrade" },
   ];
 
   function close() {
@@ -81,15 +81,32 @@ export function UserMenu({ collapsed }: { collapsed?: boolean }) {
         )}
       >
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-[var(--color-text-inverse)] text-xs font-bold">
-          G
+          C
         </div>
-        {!collapsed && <span>{t("guest")}</span>}
+        {!collapsed && <span>Cem</span>}
       </button>
 
       {open && (
         <div className="absolute bottom-full left-0 mb-4 z-50 min-w-[220px] max-h-[calc(100vh-100px)] overflow-visible rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] p-1.5 shadow-lg">
-          {/* Account & preferences */}
-          {topItems.map((item) => (
+          {/* Profile header */}
+          <Link
+            href="/profile"
+            onClick={close}
+            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors"
+          >
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-[var(--color-text-inverse)] text-sm font-bold">
+              C
+            </div>
+            <div className="min-w-0">
+              <div className="text-sm font-semibold text-[var(--color-text)] truncate">Cem Olmez</div>
+              <div className="text-xs text-[var(--color-text-tertiary)] truncate">cem@pantry.app</div>
+            </div>
+          </Link>
+
+          <div className="my-1 h-px bg-[var(--color-border)]" />
+
+          {/* Settings */}
+          {profileItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
