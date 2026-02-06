@@ -499,6 +499,7 @@
     }
   },
   "upgrade": {
+    "backToDashboard": "Panoya Dön",
     "title": "Planınızı Yükseltin",
     "subtitle": "Mutfak potansiyelinizi açığa çıkarın",
     "currentPlan": "Mevcut Plan",

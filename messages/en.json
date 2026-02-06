@@ -499,6 +499,7 @@
     }
   },
   "upgrade": {
+    "backToDashboard": "Back to Dashboard",
     "title": "Upgrade Your Plan",
     "subtitle": "Unlock your full kitchen potential",
     "currentPlan": "Current Plan",

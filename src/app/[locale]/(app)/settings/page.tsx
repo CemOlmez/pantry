@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -118,12 +117,10 @@ const defaultSettings: SettingsData = {
 export default function SettingsPage() {
   const t = useTranslations("settings");
   const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
+  const [mounted, setMounted] = useState(false);
   const currentLocale = useLocale();
+
+  useEffect(() => { setMounted(true); }, []);
   const router = useRouter();
   const pathname = usePathname();
   const [settings, setSettings] = useState<SettingsData>(defaultSettings);

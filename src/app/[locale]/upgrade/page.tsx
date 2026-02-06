@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
+  ArrowLeft,
   Crown,
   Zap,
   Gem,
@@ -130,14 +131,18 @@ const categories = ["pantry", "recipes", "mealPlanning", "nutrition", "shopping"
 function FeatureValue({ featureKey, value, t }: { featureKey: string; value: string | boolean; t: (key: string) => string }) {
   if (typeof value === "boolean") {
     return value ? (
-      <Check size={18} className="text-[var(--color-accent)]" />
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-accent)]/15">
+        <Check size={16} className="text-[var(--color-accent)]" />
+      </div>
     ) : (
-      <X size={18} className="text-[var(--color-text-tertiary)]" />
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--color-text-tertiary)]/10">
+        <X size={16} className="text-[var(--color-text-tertiary)]/60" />
+      </div>
     );
   }
   const translationKey = `featureList.${featureKey}${value.charAt(0).toUpperCase() + value.slice(1)}`;
   return (
-    <span className="text-xs text-[var(--color-text-secondary)]">
+    <span className="inline-block rounded-full bg-[var(--color-bg-secondary)] px-2.5 py-1 text-xs font-medium text-[var(--color-text-secondary)]">
       {t(translationKey)}
     </span>
   );
@@ -182,9 +187,84 @@ function AnimatedPrice({ value, suffix }: { value: string; suffix: string }) {
   );
 }
 
+const testimonialKeys = ["t1", "t2", "t3"] as const;
+
+function TestimonialCarousel({ t }: { t: (key: string) => string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    let raf: number;
+    let speed = 0.5;
+
+    function step() {
+      if (!paused && el) {
+        el.scrollLeft += speed;
+        // When we've scrolled past the first set, jump back seamlessly
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      raf = requestAnimationFrame(step);
+    }
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [paused]);
+
+  // Duplicate cards for seamless loop
+  const allKeys = [...testimonialKeys, ...testimonialKeys];
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-[var(--color-text)]">
+        {t("testimonials")}
+      </h2>
+      <div
+        ref={scrollRef}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        className="flex gap-5 overflow-hidden"
+      >
+        {allKeys.map((key, i) => (
+          <div
+            key={`${key}-${i}`}
+            className="w-[340px] md:w-[380px] shrink-0 rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] p-6 space-y-4"
+          >
+            <Quote size={24} className="text-[var(--color-primary)] opacity-40" />
+            <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed italic">
+              &ldquo;{t(`testimonialList.${key}Quote`)}&rdquo;
+            </p>
+            <div className="flex items-center gap-3 pt-2 border-t border-[var(--color-border)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-primary)]/10 text-xs font-bold text-[var(--color-primary)]">
+                {t(`testimonialList.${key}Name`).charAt(0)}
+              </div>
+              <div>
+                <div className="text-sm font-medium text-[var(--color-text)]">
+                  {t(`testimonialList.${key}Name`)}
+                </div>
+                <div className="text-xs text-[var(--color-text-tertiary)]">
+                  {t(`testimonialList.${key}Role`)}
+                </div>
+              </div>
+              <div className="ml-auto flex gap-0.5">
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} size={12} className="fill-[var(--color-primary)] text-[var(--color-primary)]" />
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function UpgradePage() {
   const t = useTranslations("upgrade");
   const [billing, setBilling] = useState<BillingCycle>("annual");
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<string | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(categories)
@@ -206,9 +286,7 @@ export default function UpgradePage() {
       color: "text-blue-500",
       bg: "bg-blue-500",
       bgLight: "bg-blue-500/10",
-      border: "border-blue-500/30",
-      highlighted: false,
-      badge: null as string | null,
+      border: "border-blue-500",
       monthlyPrice: t("plans.plus.monthlyPrice"),
       annualMonthly: t("plans.plus.annualMonthly"),
       totalAnnual: t("plans.plus.annualPrice"),
@@ -220,8 +298,6 @@ export default function UpgradePage() {
       bg: "bg-[var(--color-primary)]",
       bgLight: "bg-[var(--color-primary)]/10",
       border: "border-[var(--color-primary)]",
-      highlighted: true,
-      badge: t("mostPopular"),
       monthlyPrice: t("plans.pro.monthlyPrice"),
       annualMonthly: t("plans.pro.annualMonthly"),
       totalAnnual: t("plans.pro.annualPrice"),
@@ -233,8 +309,6 @@ export default function UpgradePage() {
       bg: "bg-purple-500",
       bgLight: "bg-purple-500/10",
       border: "border-purple-500",
-      highlighted: false,
-      badge: t("bestValue"),
       monthlyPrice: t("plans.premium.monthlyPrice"),
       annualMonthly: t("plans.premium.annualMonthly"),
       totalAnnual: t("plans.premium.annualPrice"),
@@ -271,17 +345,26 @@ export default function UpgradePage() {
   const faqKeys = ["q1", "q2", "q3", "q4", "q5"] as const;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 pb-10">
+    <div className="mx-auto max-w-5xl space-y-8 px-4 py-8 md:px-8 md:py-10 pb-16">
+      {/* Back button */}
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors"
+      >
+        <ArrowLeft size={16} />
+        {t("backToDashboard")}
+      </Link>
+
       {/* Hero */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-hover)] p-10 md:p-14 text-white text-center">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-50" />
-        <div className="relative space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium backdrop-blur-sm">
+        <div className="relative space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-sm font-medium backdrop-blur-sm">
             <Crown size={16} />
             {t("currentPlan")}: {t("free")}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold">{t("title")}</h1>
-          <p className="text-white/80 text-lg">{t("subtitle")}</p>
+          <p className="text-white/80 text-lg max-w-xl mx-auto">{t("subtitle")}</p>
         </div>
       </div>
 
@@ -295,30 +378,25 @@ export default function UpgradePage() {
       />
 
       {/* Plan Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
         {plans.map((plan) => {
           const price = billing === "monthly" ? plan.monthlyPrice : plan.annualMonthly;
+          const isSelected = selectedPlan === plan.id;
           return (
             <div
               key={plan.id}
+              onClick={() => setSelectedPlan(plan.id)}
               className={cn(
-                "group relative rounded-2xl border-2 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer",
-                plan.highlighted
-                  ? `${plan.border} shadow-lg md:-mt-2 md:mb-[-8px]`
+                "group relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer flex flex-col border-2",
+                isSelected
+                  ? `${plan.border} shadow-lg`
                   : "border-[var(--color-border)] hover:border-[var(--color-border-hover)]"
               )}
             >
-              {/* Badge area — fixed height so all cards align */}
-              <div
-                className={cn(
-                  "h-8 flex items-center justify-center text-xs font-bold text-white",
-                  plan.badge ? plan.bg : "bg-transparent"
-                )}
-              >
-                {plan.badge ?? ""}
-              </div>
+              {/* Top accent bar */}
+              <div className={cn("h-1.5", plan.bg)} />
 
-              <div className="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col">
+              <div className="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col flex-1">
                 {/* Plan header */}
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
@@ -357,9 +435,7 @@ export default function UpgradePage() {
                   href={`/upgrade/checkout?plan=${plan.id}&billing=${billing}`}
                   className={cn(
                     "mt-6 block w-full rounded-full py-3 text-sm font-semibold text-center transition-all duration-200 cursor-pointer hover:scale-[1.02] active:scale-[0.98]",
-                    plan.highlighted
-                      ? `${plan.bg} text-white hover:opacity-90`
-                      : "bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-border-hover)]"
+                    `${plan.bg} text-white hover:opacity-90`
                   )}
                 >
                   {t("upgradeTo")} {t(`plans.${plan.id}.name`)}
@@ -377,6 +453,9 @@ export default function UpgradePage() {
                   ))}
                 </div>
               </div>
+
+              {/* Bottom accent bar */}
+              <div className={cn("h-1.5", plan.bg)} />
             </div>
           );
         })}
@@ -385,28 +464,40 @@ export default function UpgradePage() {
       {/* Feature Comparison Table */}
       <div className={cardClass}>
         <div className="h-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]" />
-        <div className="p-6 md:p-8 space-y-4">
+        <div className="p-6 md:p-8 space-y-6">
           <h2 className="text-xl font-semibold text-[var(--color-text)]">
             {t("features")}
           </h2>
 
-          <div className="hidden sm:grid grid-cols-5 gap-2 px-3 py-3 rounded-xl bg-[var(--color-bg-secondary)] text-xs font-semibold text-[var(--color-text-secondary)]">
-            <div className="col-span-1" />
-            <div className="text-center">{t("free")}</div>
-            <div className="text-center">{t("plans.plus.name")}</div>
-            <div className="text-center">{t("plans.pro.name")}</div>
-            <div className="text-center">{t("plans.premium.name")}</div>
+          {/* Sticky column header */}
+          <div className="hidden sm:grid grid-cols-5 gap-0 sticky top-0 z-10">
+            <div className="col-span-1 bg-[var(--color-surface)] py-3 px-4" />
+            <div className="flex flex-col items-center gap-1 py-3 px-2 bg-[var(--color-surface)] border-l border-[var(--color-border)]">
+              <span className="text-xs font-bold text-[var(--color-text-secondary)] uppercase tracking-wider">{t("free")}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 py-3 px-2 bg-blue-500/5 border-l-2 border-blue-500/30">
+              <Zap size={14} className="text-blue-500" />
+              <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">{t("plans.plus.name")}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 py-3 px-2 bg-[var(--color-primary)]/5 border-l-2 border-[var(--color-primary)]/30">
+              <Crown size={14} className="text-[var(--color-primary)]" />
+              <span className="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">{t("plans.pro.name")}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 py-3 px-2 bg-purple-500/5 border-l-2 border-purple-500/30 rounded-tr-xl">
+              <Gem size={14} className="text-purple-500" />
+              <span className="text-xs font-bold text-purple-500 uppercase tracking-wider">{t("plans.premium.name")}</span>
+            </div>
           </div>
 
           {categories.map((cat) => {
             const isExpanded = expandedCategories.has(cat);
             const rows = featureRows.filter((r) => r.category === cat);
             return (
-              <div key={cat}>
+              <div key={cat} className="space-y-0">
                 <button
                   type="button"
                   onClick={() => toggleCategory(cat)}
-                  className="flex w-full items-center justify-between px-3 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] rounded-lg transition-colors cursor-pointer"
+                  className="flex w-full items-center justify-between px-4 py-3 text-sm font-semibold text-[var(--color-text)] bg-[var(--color-bg-secondary)] rounded-xl transition-colors cursor-pointer hover:bg-[var(--color-bg-secondary)]/80"
                 >
                   <span>{t(`featureCategories.${cat}`)}</span>
                   <ChevronDown
@@ -418,27 +509,46 @@ export default function UpgradePage() {
                   />
                 </button>
                 {isExpanded && (
-                  <div className="space-y-1 mt-1">
-                    {rows.map((row) => (
+                  <div className="mt-1 rounded-xl border border-[var(--color-border)] overflow-hidden">
+                    {rows.map((row, i) => (
                       <div
                         key={row.key}
-                        className="grid grid-cols-2 sm:grid-cols-5 gap-2 px-3 py-2.5 rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors items-center"
+                        className={cn(
+                          "grid grid-cols-2 sm:grid-cols-5 gap-0 items-center transition-colors",
+                          i % 2 === 0
+                            ? "bg-[var(--color-surface)]"
+                            : "bg-[var(--color-bg-secondary)]/50",
+                          i !== rows.length - 1 && "border-b border-[var(--color-border)]/50"
+                        )}
                       >
-                        <div className="text-sm text-[var(--color-text)] sm:col-span-1">
+                        <div className="text-sm text-[var(--color-text)] sm:col-span-1 px-4 py-3.5 font-medium">
                           {t(`featureList.${row.key}`)}
                         </div>
-                        <div className="sm:hidden flex flex-wrap gap-1.5">
+
+                        {/* Mobile layout */}
+                        <div className="sm:hidden flex flex-wrap gap-2 px-4 py-3.5">
                           {(["free", "plus", "pro", "premium"] as const).map((tier) => (
-                            <span key={tier} className="text-xs text-[var(--color-text-tertiary)]">
-                              <span className="font-medium">{tier === "free" ? t("free") : t(`plans.${tier}.name`)}: </span>
-                              {typeof row[tier] === "boolean" ? (row[tier] ? <Check size={12} className="inline text-[var(--color-accent)]" /> : <X size={12} className="inline" />) : (
+                            <span key={tier} className="text-xs text-[var(--color-text-tertiary)] flex items-center gap-1">
+                              <span className="font-semibold">{tier === "free" ? t("free") : t(`plans.${tier}.name`)}:</span>
+                              {typeof row[tier] === "boolean" ? (row[tier] ? <Check size={12} className="text-[var(--color-accent)]" /> : <X size={12} />) : (
                                 <FeatureValue featureKey={row.key} value={row[tier]} t={t} />
                               )}
                             </span>
                           ))}
                         </div>
+
+                        {/* Desktop columns with tinted backgrounds */}
                         {(["free", "plus", "pro", "premium"] as const).map((tier) => (
-                          <div key={tier} className="hidden sm:flex justify-center">
+                          <div
+                            key={tier}
+                            className={cn(
+                              "hidden sm:flex justify-center py-3.5 border-l",
+                              tier === "free" && "border-[var(--color-border)]",
+                              tier === "plus" && "border-blue-500/20 bg-blue-500/[0.03]",
+                              tier === "pro" && "border-[var(--color-primary)]/20 bg-[var(--color-primary)]/[0.03]",
+                              tier === "premium" && "border-purple-500/20 bg-purple-500/[0.03]"
+                            )}
+                          >
                             <FeatureValue featureKey={row.key} value={row[tier]} t={t} />
                           </div>
                         ))}
@@ -452,43 +562,8 @@ export default function UpgradePage() {
         </div>
       </div>
 
-      {/* Testimonials */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-[var(--color-text)]">
-          {t("testimonials")}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {(["t1", "t2", "t3"] as const).map((key) => (
-            <div
-              key={key}
-              className="rounded-2xl bg-[var(--color-surface)] border border-[var(--color-border)] p-6 space-y-4"
-            >
-              <Quote size={24} className="text-[var(--color-primary)] opacity-40" />
-              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed italic">
-                &ldquo;{t(`testimonialList.${key}Quote`)}&rdquo;
-              </p>
-              <div className="flex items-center gap-3 pt-2 border-t border-[var(--color-border)]">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-primary)]/10 text-xs font-bold text-[var(--color-primary)]">
-                  {t(`testimonialList.${key}Name`).charAt(0)}
-                </div>
-                <div>
-                  <div className="text-sm font-medium text-[var(--color-text)]">
-                    {t(`testimonialList.${key}Name`)}
-                  </div>
-                  <div className="text-xs text-[var(--color-text-tertiary)]">
-                    {t(`testimonialList.${key}Role`)}
-                  </div>
-                </div>
-                <div className="ml-auto flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={12} className="fill-[var(--color-primary)] text-[var(--color-primary)]" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Testimonials Carousel */}
+      <TestimonialCarousel t={t} />
 
       {/* Billing FAQ */}
       <div className={cardClass}>

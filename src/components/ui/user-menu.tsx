@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
 import { Link } from "@/i18n/navigation";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
@@ -19,12 +18,10 @@ export function UserMenu({ collapsed }: { collapsed?: boolean }) {
   const t = useTranslations("user");
   const tc = useTranslations("common");
   const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
+  const [mounted, setMounted] = useState(false);
   const currentLocale = useLocale();
+
+  useEffect(() => { setMounted(true); }, []);
   const router = useRouter();
   const pathname = usePathname();
 
